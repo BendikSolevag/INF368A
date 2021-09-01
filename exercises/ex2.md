@@ -17,16 +17,15 @@
 <section>
     <h2>Exercise 2.2</h2>
     <p>
-        Analysing mean and variance gives an estimate of the average 'distance' between two words. We do this by calculating the mean distance between the words, as well as their standard deviation. We accept that high frequency and low variance could be accidental, so we test our pairs via hypothesis testing. We assume our co-occurrences are by chance, and compute the chance that the event would occur if our assumption were true. We reject the pair if the probability is too low. 
+        Analysing mean and variance gives an estimate of the average `distance` between two words. We do this by calculating the mean distance between the words, as well as their standard deviation. We accept that high frequency and low variance could be accidental, so we test our pairs via hypothesis testing. We assume our co-occurrences are by chance, and compute the chance that the event would occur if our assumption were true. We reject the pair if the probability is too low. 
     </p>
 </section>
 <section>
     <h2>Exercise 2.3</h2>
-    ```
-    'Expensive' occurs 14500 times.
-    'Wine' occurs 4500 times.
+    `Expensive` occurs 14500 times.
+    `Wine` occurs 4500 times.
     Corpus has 15000000 tokens.
-    'Expensive Wine' occurs 7 times.
+    `Expensive Wine` occurs 7 times.
 
     Pr(expensive) = 14500/15000000 = 0.0009666666666666667
     Pr(wine) = 4500/15000000 = 0.0003
@@ -34,6 +33,5 @@
 
     Pr(expensive wine) = 7/15000000 = 4.667 * 10^-7
     t = ((4.667 - 2.9) * 10^-7) / sqrt( (4.667 * 10^-7)/(15000000)) = 1.0017590592405523
-    T value is below 2.576 -> 'Expensive wine' is not a collocation.
-    ```
+    T value is below 2.576 -> `Expensive wine` is not a collocation.
 </section>
