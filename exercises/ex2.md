@@ -22,18 +22,18 @@
 </section>
 <section>
     <h2>Exercise 2.3</h2>
-    <p>
-        'Expensive' occurs 14500 times.
-        'Wine' occurs 4500 times.
-        Corpus has 15000000 tokens.
-        'Expensive Wine' occurs 7 times.
+    ```
+    'Expensive' occurs 14500 times.
+    'Wine' occurs 4500 times.
+    Corpus has 15000000 tokens.
+    'Expensive Wine' occurs 7 times.
 
-        Pr(expensive) = 14500/15000000 = 0.0009666666666666667
-        Pr(wine) = 4500/15000000 = 0.0003
-        P(expensive wine) = P(expensive) * P(wine) = 2.9 * 10^-7
+    Pr(expensive) = 14500/15000000 = 0.0009666666666666667
+    Pr(wine) = 4500/15000000 = 0.0003
+    P(expensive wine) = P(expensive) * P(wine) = 2.9 * 10^-7
 
-        Pr(expensive wine) = 7/15000000 = 4.667 * 10^-7
-        t = ((4.667 - 2.9) * 10^-7) / sqrt( (4.667 * 10^-7)/(15000000)) = 1.0017590592405523
-        T value is below 2.576 -> 'Expensive wine' is not a collocation.
-    </p>
+    Pr(expensive wine) = 7/15000000 = 4.667 * 10^-7
+    t = ((4.667 - 2.9) * 10^-7) / sqrt( (4.667 * 10^-7)/(15000000)) = 1.0017590592405523
+    T value is below 2.576 -> 'Expensive wine' is not a collocation.
+    ```
 </section>
