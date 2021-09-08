@@ -16,7 +16,6 @@ from nltk.collocations import *
 
 bigram_measures = nltk.collocations.BigramAssocMeasures()
 
-
 finder = BigramCollocationFinder.from_words(brown.words())
 finder.apply_freq_filter(3)
 collocations = finder.nbest(bigram_measures.pmi, 50)
@@ -36,7 +35,7 @@ def check(bigram):
 
 correct_bigrams = [bigram for bigram in tagged_collocations if check(bigram)]
 
-f = open('1.1.txt', 'w')
+f = open('1.1.1.txt', 'w')
 for bigram in correct_bigrams:
     f.write(str(bigram))
     f.write('\n')
