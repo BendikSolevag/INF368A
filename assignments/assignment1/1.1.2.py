@@ -8,25 +8,32 @@
 """
 import math
 import nltk
-from nltk.util import bigrams
 from nltk.corpus import brown
 from nltk.collocations import *
 
 bigram_measures = nltk.collocations.BigramAssocMeasures()
 
+words = brown.words()
+finder = BigramCollocationFinder.from_words(words)
+collocations = finder.nbest(bigram_measures.pmi, 100)
 
-finder = BigramCollocationFinder.from_words(brown.words())
-finder.apply_freq_filter(3)
-collocations = finder.nbest(bigram_measures.pmi, 50)
+# Iterating over corpus many times is a bad way to do this.
+def count_collocation(first, second):
+    cnt = 0
+    for i in range(len(words) - 1):
+        if words[i] == first and words[i+1] == second:
+            cnt += 1
+    return cnt
 
 # Iterating over corpus many times is a bad way to do this.
 def test_collocation(collocation):
     first, second = collocation
-    p_first = brown.words().count(first) / 1161192
-    p_second = brown.words().count(second) / 1161192
+    p_first = words.count(first) / 1161192
+    p_second = words.count(second) / 1161192
     p_collocation = p_first * p_second
-    pt_collocation = brown.words().count(first + ' ' + second) / 1161192
+    pt_collocation = count_collocation(first, second) / 1161192
     t = (pt_collocation - p_collocation) / (math.sqrt(pt_collocation) * math.sqrt(1 / 1161192))
+    print(t)
     return t > 2.576
 
 correct_collocations = [collocation for collocation in collocations if test_collocation(collocation)]
