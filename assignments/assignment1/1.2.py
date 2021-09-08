@@ -13,7 +13,14 @@
 
 import nltk
 from nltk.util import bigrams
-from nltk.corpus import brown
+from nltk.corpus import wordnet as wn
 
-# Generate list of common collocations over dataset. Take as input a few words, look up the combinations of words in our list. 
-# If any word appears, give as output the identified collocation.
+
+"""
+Generate bigrams from input sentence. One at a time, generate synonyms for words in bigrams. Run new bigram, one word replaced with synonym against collocations.
+If a match occurs, return the new bigram. Otherwise keep the old bigram. 
+
+"""
+
+
+print(wn.synsets('powerful'))
