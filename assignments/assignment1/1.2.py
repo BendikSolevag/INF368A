@@ -49,7 +49,8 @@ list_of_collocations = [['agreeable', 'autocracies'],
 ['american-negro', 'suite'],
 ['moise', 'tshombe'],
 ['rabbi', 'melzi'],
-['real', 'estate']]
+['real', 'estate'],
+['strong', 'tea']]
 
 """
 1 Assignment Description
@@ -70,8 +71,33 @@ If a match occurs, return the new bigram. Otherwise keep the old bigram.
 
 """
 
+input_sentence = 'Expensive real demesne'
+print(input_sentence)
+tokenized_input = nltk.word_tokenize(input_sentence)
+for i in range(len(tokenized_input) - 1):
+    # We test only on bigrams, as our reference collocations are all bigrams. 
+    bigram = tokenized_input[i:i+2]
+    # Iterate over all collocations we have
+    for collocation in list_of_collocations:
+        # Check if word matches word in collocation
+        if(collocation[0] == bigram[0]):
+            for synset in wn.synsets(bigram[1]):
+                for lemma in synset.lemmas():
+                    # Check if following word is synonym with following word in collocation
+                    if(lemma.name() == collocation[1]):
+                        #If true, replace input sentence with collocation
+                        tokenized_input[i:i+2] = [bigram[0], collocation[1]]
+        if(collocation[1] == bigram[1]):
+            for synset in wn.synsets(bigram[0]):
+                for lemma in synset.lemmas():
+                    if(lemma.name() == collocation[0]):
+                        tokenized_input[i:i+2] = [collocation[0], bigram[1]]
 
+print(' '.join(tokenized_input))
+
+"""
 for synset in wn.synsets('demesne'):
     print(synset)
     for lemma in synset.lemmas():
         print(lemma.name())
+"""
