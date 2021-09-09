@@ -36,8 +36,10 @@ def check(bigram):
 correct_bigrams = [bigram for bigram in tagged_collocations if check(bigram)]
 
 f = open('1.1.1.txt', 'w')
+f.write('[')
 for bigram in correct_bigrams:
-    f.write(str([bigram[0][0], [bigram[1][0]]]))
-    f.write('\n')
+    f.write(str([bigram[0][0].lower(), bigram[1][0].lower()]))
+    f.write(',\n')
+f.write(']')
 
 f.close()

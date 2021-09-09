@@ -1,3 +1,56 @@
+
+
+import nltk
+from nltk.util import bigrams
+from nltk.corpus import wordnet as wn
+
+
+list_of_collocations = [['agreeable', 'autocracies'],
+['estate', 'boards'],
+['furious', 'overfall'],
+['grands', 'crus'],
+['klux', 'klan'],
+['ku', 'klux'],
+['longue', 'vue'],
+['sancho', 'panza'],
+['sultan', 'ahmet'],
+['bel', 'canto'],
+['andrea', 'palladio'],
+['bam', 'ld'],
+['enver', 'pasha'],
+['polo', 'grounds'],
+['sara', 'sullam'],
+['woonsocket', 'patriot'],
+['beech', 'pasture'],
+['chemische', 'krystallographie'],
+['duncan', 'phyfe'],
+["groth's", 'chemische'],
+['hwang', 'pah'],
+['baton', 'rouge'],
+['dolce', 'vita'],
+['final', 'solution'],
+['patterson', 'moos'],
+['ol', 'slater'],
+['coral', 'gables'],
+['v-shaped', 'inlet'],
+['crystal', 'structures'],
+["kaiser's", 'fountain'],
+['nineteen', 'eighty-four'],
+['notre', 'dame'],
+["salyer's", 'canyon'],
+['loom', 'winder'],
+['neutral', 'tones'],
+['souvanna', 'phouma'],
+['las', 'vegas'],
+['sargent', 'shriver'],
+['ham', 'richert'],
+['sterling', 'township'],
+['train', 'robbery'],
+['american-negro', 'suite'],
+['moise', 'tshombe'],
+['rabbi', 'melzi'],
+['real', 'estate']]
+
 """
 1 Assignment Description
 
@@ -8,19 +61,17 @@
     will output the first such collocation in your files (consider that two words that are the same are synonyms). For example, 
     if it receives “powerful tea” and “strong tea” is in your list then the algorithm should print “strong tea”.
 • Suggestion: Use WordNet to detect synonyms.
-
 """
 
-import nltk
-from nltk.util import bigrams
-from nltk.corpus import wordnet as wn
-
-
 """
-Generate bigrams from input sentence. One at a time, generate synonyms for words in bigrams. Run new bigram, one word replaced with synonym against collocations.
+Generate bigrams from input sentence. One at a time, generate synonyms for words in bigrams. 
+Run new bigram, one word replaced with synonym against collocations.
 If a match occurs, return the new bigram. Otherwise keep the old bigram. 
 
 """
 
 
-print(wn.synsets('powerful'))
+for synset in wn.synsets('demesne'):
+    print(synset)
+    for lemma in synset.lemmas():
+        print(lemma.name())
