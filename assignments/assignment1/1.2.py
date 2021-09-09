@@ -64,13 +64,6 @@ list_of_collocations = [['agreeable', 'autocracies'],
 • Suggestion: Use WordNet to detect synonyms.
 """
 
-"""
-Generate bigrams from input sentence. One at a time, generate synonyms for words in bigrams. 
-Run new bigram, one word replaced with synonym against collocations.
-If a match occurs, return the new bigram. Otherwise keep the old bigram. 
-
-"""
-
 print('Enter input sentence ("Expensive real demesne" is a good place to start)')
 input_sentence = input()
 tokenized_input = nltk.word_tokenize(input_sentence)
