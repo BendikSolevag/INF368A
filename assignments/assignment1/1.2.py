@@ -71,8 +71,8 @@ If a match occurs, return the new bigram. Otherwise keep the old bigram.
 
 """
 
-input_sentence = 'Expensive real demesne'
-print(input_sentence)
+print('Enter input sentence ("Expensive real demesne" is a good place to start)')
+input_sentence = input()
 tokenized_input = nltk.word_tokenize(input_sentence)
 for i in range(len(tokenized_input) - 1):
     # We test only on bigrams, as our reference collocations are all bigrams. 
@@ -86,12 +86,12 @@ for i in range(len(tokenized_input) - 1):
                     # Check if following word is synonym with following word in collocation
                     if(lemma.name() == collocation[1]):
                         #If true, replace input sentence with collocation
-                        tokenized_input[i:i+2] = [bigram[0], collocation[1]]
+                        tokenized_input[i:i+2] = collocation
         if(collocation[1] == bigram[1]):
             for synset in wn.synsets(bigram[0]):
                 for lemma in synset.lemmas():
                     if(lemma.name() == collocation[0]):
-                        tokenized_input[i:i+2] = [collocation[0], bigram[1]]
+                        tokenized_input[i:i+2] = collocation
 
 print(' '.join(tokenized_input))
 

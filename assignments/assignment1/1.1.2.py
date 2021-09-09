@@ -31,18 +31,12 @@ def test_collocation(collocation):
     first_count = words.count(first)
     second_count = words.count(second)
 
-    print(first, first_count)
-    print(second, second_count)
-    """
     p_first = first_count / 1161192
     p_second = second_count / 1161192
     p_collocation = p_first * p_second
     pt_collocation = count_collocation(first, second) / 1161192
     t = (pt_collocation - p_collocation) / (math.sqrt(pt_collocation) * math.sqrt(1 / 1161192))
-    print(t)
     return t > 2.576
-    """
-    return False
 
 correct_collocations = [collocation for collocation in collocations if test_collocation(collocation)]
 
