@@ -1,5 +1,5 @@
 import numpy as np
-from model import MyFFLM
+from model import FFNN
 import re
 from tqdm import tqdm
 
@@ -28,7 +28,7 @@ words_to_view = 3
 len_vocab = len(vocab)
 len_dataset = len(gatsby_clean) - words_to_view
 print("dataset length" + str(len_dataset))
-model = MyFFLM(len_vocab, 64, learning_rate=0.001, words_to_view=words_to_view)
+model = FFNN(len_vocab, 64, learning_rate=0.001, words_to_view=words_to_view)
 
 
 for epoch in range(1):
@@ -51,7 +51,6 @@ for epoch in range(1):
     for x, y in zip(input_vector, output_vector):
         y_pred = model.forward(x)
         model.backprop(y, y_pred)
-        model.update()
         pbar.update()
     pbar.close()
 
