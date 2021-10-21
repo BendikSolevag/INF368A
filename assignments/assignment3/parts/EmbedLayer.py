@@ -9,5 +9,8 @@ class EmbedLayer:
     def forward(self, x):
         return np.matmul(self.weights, x.T)
 
-    def test_mode(self):
-        self.weights = np.ones(self.weights.shape)
+    def get_weights(self):
+        return self.weights
+
+    def set_weights(self, w):
+        self.weights = w
