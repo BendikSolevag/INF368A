@@ -63,19 +63,3 @@ np.savetxt('gatsbyembed.tsv', embed_weights, delimiter='\t')
 np.savetxt('gatsbyembed.csv', embed_weights, delimiter=',')
 np.savetxt('gatsbyhidden.csv', hidden_weights, delimiter=',')
 np.savetxt('gatsbyoutput.csv', output_weights, delimiter=',')
-
-
-
-
-# Predict next words
-input_vector = np.zeros((10, words_to_view, len(vocab_dict)), dtype='float16')
-for i in tqdm(range(10)):
-    # Iterate over book, collect words_to_view length vectors (amount of words to pass to our model)
-    x = np.zeros((words_to_view, len(vocab_dict)))
-    for j in range(words_to_view):
-        x[j] = vocab_dict[gatsby_clean[i+j]]
-    input_vector[i] = x
-
-for x in output_vector:
-    y_pred = model.forward(x)
-    print(reverse_dict[y_pred])
