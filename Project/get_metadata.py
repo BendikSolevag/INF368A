@@ -26,7 +26,7 @@ import argparse
 import os
 import os.path as osp
 import pandas as pd
-from tweepy import TweepError
+import sys
 from time import sleep
 
 
@@ -51,7 +51,7 @@ def main():
 
     auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
     auth.set_access_token(keys['access_token'], keys['access_token_secret'])
-    api = tweepy.API(auth, wait_on_rate_limit=True, retry_delay=60*3, retry_count=5,retry_errors=set([401, 404, 500, 503]), wait_on_rate_limit_notify=True)
+    api = tweepy.API(auth, wait_on_rate_limit=True, retry_delay=60*3, retry_count=5,retry_errors=set([401, 404, 500, 503]))
     
     if api.verify_credentials() == False: 
         print("Your twitter api credentials are invalid") 
@@ -78,11 +78,11 @@ def main():
     elif '.txt' in args.inputfile:
         inputfile_data = pd.read_csv(args.inputfile, sep='\n', header=None, names= ['tweet_id'] )
         print(inputfile_data)
-    
+    print(inputfile_data)
     if not isinstance(args.idcolumn, type(None)):
         inputfile_data = inputfile_data.set_index(args.idcolumn)
     else:
-        inputfile_data = inputfile_data.set_index('tweet_id')
+        inputfile_data = inputfile_data.set_index('id')
     
     ids = list(inputfile_data.index)
     print('total ids: {}'.format(len(ids)))
@@ -104,7 +104,7 @@ def main():
         start = ids.index(last_tweet['id'])
         end = start+100
         i = int(math.ceil(float(limit-start) / 100))
-
+    print("i = ", i)
     print('metadata collection complete')
     print('creating master json file')
     try:
@@ -119,11 +119,12 @@ def main():
                 while True:
                     try:
                         if hydration_mode == "e":
-                            tweets = api.statuses_lookup(id_batch,tweet_mode = "extended")
+                            tweets = api.lookup_statuses(id_batch,tweet_mode = "extended")
+
                         else:
-                            tweets = api.statuses_lookup(id_batch)
+                            tweets = api.lookup_statuses(id_batch)
                         break
-                    except tweepy.TweepError as ex:
+                    except tweepy.TweepyException as ex:
                         print('Caught the TweepError exception:\n %s' % ex)
                         sleep(30*backOffCounter)  # sleep a bit to see if connection Error is resolved before retrying
                         backOffCounter += 1  # increase backoff
@@ -131,7 +132,8 @@ def main():
                 for tweet in tweets:
                     json.dump(tweet._json, outfile)
                     outfile.write('\n')
-    except:
+    except Exception as e:
+        print(e)
         print('exception: continuing to zip the file')
 
     print('creating ziped master json file')
@@ -172,12 +174,12 @@ def main():
                 json.dump(t, outfile)
                 outfile.write('\n')
         
-    f = csv.writer(open('{}.csv'.format(output_file_noformat), 'w'))
+    f = csv.writer(open('{}.csv'.format(output_file_noformat), 'w', encoding='utf-8'))
     print('creating CSV version of minimized json master file') 
     fields = ["favorite_count", "source", "text", "in_reply_to_screen_name", "is_retweet", "created_at", "retweet_count", "id_str"]                
     f.writerow(fields)       
-    with open(output_file_short) as master_file:
-        for tweet in master_file:
+    with open(output_file_short, 'r+', encoding="utf-8") as master_file:
+        for tweet in master_file.readlines():
             data = json.loads(tweet)            
             f.writerow([data["favorite_count"], data["source"], data["text"].encode('utf-8'), data["in_reply_to_screen_name"], data["is_retweet"], data["created_at"], data["retweet_count"], data["id_str"].encode('utf-8')])
     
